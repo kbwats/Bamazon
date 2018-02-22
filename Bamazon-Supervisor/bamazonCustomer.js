@@ -92,8 +92,8 @@ function promptCustomerForQuantity(product) {
 // Purchase the desired quanity of the desired item
 function makePurchase(product, quantity) {
   connection.query(
-    "UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",
-    [quantity, product.item_id],
+    "UPDATE products SET stock_quantity = stock_quantity - ?, product_sales = product_sales + ? WHERE item_id = ?",
+    [quantity, product.price * quantity, product.item_id],
     function(err, res) {
       // Let the user know the purchase was successful, re-run loadProducts
       console.log("\nSuccessfully purchased " + quantity + " " + product.product_name + "'s!");
